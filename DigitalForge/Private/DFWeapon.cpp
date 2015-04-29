@@ -89,24 +89,6 @@ void ADFWeapon::OnUnEquip()
 	DetermineWeaponState();
 }
 
-void ADFWeapon::OnEnterInventory(ADigitalForgeCharacter* NewOwner)
-{
-	SetOwningPawn(NewOwner);
-}
-
-void ADFWeapon::OnLeaveInventory()
-{
-	if (Role == ROLE_Authority)
-	{
-		SetOwningPawn(NULL);
-	}
-
-	if (IsAttachedToPawn())
-	{
-		OnUnEquip();
-	}
-}
-
 void ADFWeapon::AttachMeshToPawn()
 {
 	if (MyPawn)
@@ -308,39 +290,6 @@ FHitResult ADFWeapon::WeaponTrace(const FVector& TraceFrom, const FVector& Trace
 	return Hit;
 }
 
-void ADFWeapon::SetOwningPawn(ADigitalForgeCharacter* DFCharacter)
-{
-	if (MyPawn != DFCharacter)
-	{
-		Instigator = DFCharacter;
-		MyPawn = DFCharacter;
-		SetOwner(DFCharacter);
-	}
-}
-
-void ADFWeapon::OnRep_MyPawn()
-{
-	if (MyPawn)
-	{
-		OnEnterInventory(MyPawn);
-	}
-	else
-	{
-		OnLeaveInventory();
-	}
-}
-
-void ADFWeapon::GetLifetimeReplicatedProps( TArray< class FLifetimeProperty > & OutLifetimeProps ) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	DOREPLIFETIME(ADFWeapon, MyPawn);
-}
-
-ADigitalForgeCharacter* ADFWeapon::GetPawnOwner() const
-{
-	return MyPawn;
-}
 
 bool ADFWeapon::IsEquipped() const
 {
@@ -375,4 +324,17 @@ USkeletalMeshComponent* ADFWeapon::GetWeaponMesh() const
 bool ADFWeapon::GetWeaponWantsToAttack()
 {
 	return bWantsToAttack;
+}
+
+void ADFWeapon::OnLeaveInventory()
+{
+	if (Role == ROLE_Authority)
+	{
+		SetOwningPawn(NULL);
+	}
+
+	if (IsAttachedToPawn())
+	{
+		OnUnEquip();
+	}
 }

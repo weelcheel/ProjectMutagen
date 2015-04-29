@@ -34,11 +34,7 @@ class ADFWeapon : public ADFInventoryItem
 	/** weapon is holstered by owner pawn */
 	virtual void OnUnEquip();
 
-	/** [server] weapon was added to pawn's inventory */
-	virtual void OnEnterInventory(ADigitalForgeCharacter* NewOwner);
-
-	/** [server] weapon was removed from pawn's inventory */
-	virtual void OnLeaveInventory();
+	virtual void OnLeaveInventory() override;
 
 	/** check if it's currently equipped */
 	bool IsEquipped() const;
@@ -55,9 +51,6 @@ class ADFWeapon : public ADFInventoryItem
 	/** check if weapon can fight */
 	bool CanAttack() const;
 
-	/** set the weapon's owning pawn */
-	void SetOwningPawn(ADigitalForgeCharacter* DFCharacter);
-
 	/** gets last time when this weapon was switched to */
 	float GetEquipStartedTime() const;
 
@@ -69,10 +62,6 @@ class ADFWeapon : public ADFInventoryItem
 	USkeletalMeshComponent* WeaponMesh;
 
 protected:
-
-	/** pawn owner */
-	UPROPERTY(Transient, ReplicatedUsing=OnRep_MyPawn)
-	class ADigitalForgeCharacter* MyPawn;
 
 	/** fighting audio */
 	UPROPERTY(Transient)
@@ -119,9 +108,6 @@ protected:
 	UFUNCTION(reliable, server, WithValidation)
 	void ServerStopAttack();
 
-	UFUNCTION()
-	void OnRep_MyPawn();
-
 	UFUNCTION(BlueprintImplementableEvent, Category=Weapon)
 	void WeaponAttack();
 
@@ -166,6 +152,9 @@ protected:
 	/** [local + server] attack finished */
 	virtual void OnAttackFinished();
 
+	UPROPERTY(BlueprintReadWrite, Category=Range)
+	float WeaponRange;
+
 public:
 
 	/** get current weapon state */
@@ -174,10 +163,6 @@ public:
 	/** get weapon mesh (needs pawn owner to determine variant) */
 	UFUNCTION(BlueprintCallable, Category=Mesh)
 	USkeletalMeshComponent* GetWeaponMesh() const;
-
-	/** get pawn owner */
-	UFUNCTION(BlueprintCallable, Category="Game")
-	class ADigitalForgeCharacter* GetPawnOwner() const;
 
 	/**get whether or not the weapon is attacking*/
 	UFUNCTION(BlueprintCallable, Category=Attack)

@@ -4,6 +4,7 @@
 
 class ADFInventoryItem;
 class ADigitalForgeCharacter;
+class ADFSkill;
 
 UCLASS()
 class ADFPlayerInventory : public AActor
@@ -17,6 +18,10 @@ class ADFPlayerInventory : public AActor
 	/**Weapons the player currently has in inventory.*/
 	UPROPERTY(Replicated)
 	TArray<ADFWeapon*> PlayerWeapons;
+
+	/**Array of skills that the player currently knows.*/
+	UPROPERTY(Replicated)
+	TArray<ADFSkill*> KnownSkills;
 
 public:
 

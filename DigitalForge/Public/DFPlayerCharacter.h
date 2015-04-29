@@ -25,6 +25,8 @@ protected:
 
 	void PlayerUse();
 
+	void SkillUse();
+
 public:
 
 	UPROPERTY(BlueprintReadOnly, Category=NPC)

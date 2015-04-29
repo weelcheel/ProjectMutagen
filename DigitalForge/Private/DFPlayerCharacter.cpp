@@ -45,6 +45,9 @@ void ADFPlayerCharacter::SetupPlayerInputComponent(class UInputComponent* InputC
 	InputComponent->BindAction("WeaponAttack", IE_Pressed, this, &ADigitalForgeCharacter::StartWeaponAttack);
 	InputComponent->BindAction("WeaponAttack", IE_Released, this, &ADigitalForgeCharacter::StopWeaponAttack);
 
+	InputComponent->BindAction("PlayerUse", IE_Pressed, this, &ADFPlayerCharacter::PlayerUse);
+	InputComponent->BindAction("SkillUse", IE_Pressed, this, )
+
 	InputComponent->BindAxis("MoveForward", this, &ADigitalForgeCharacter::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &ADigitalForgeCharacter::MoveRight);
 
