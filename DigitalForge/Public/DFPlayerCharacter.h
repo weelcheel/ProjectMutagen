@@ -4,6 +4,7 @@
 #include "DFPlayerCharacter.generated.h"
 
 class ADFNPCharacter;
+class ADFPlayerInventory;
 
 UCLASS(Blueprintable)
 class ADFPlayerCharacter : public ADigitalForgeCharacter
@@ -23,8 +24,10 @@ protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-	void PlayerUse();
+	/** get the player inventory from the player controller */
+	ADFPlayerInventory* GetPlayerInventory() const;
 
+	void PlayerUse();
 	void SkillUse();
 
 public:

@@ -21,4 +21,7 @@ public:
 	/**Tries to give the player the specified inventory and returns whether or not it succeeded.*/
 	UFUNCTION(BlueprintCallable, Category=Inventory)
 	bool GivePlayerInventory(TSubclassOf<ADFInventoryItem> InventoryClass, bool bTryToActivate);
+
+	/** returns the inventory object */
+	ADFPlayerInventory* GetInventory() const;
 };

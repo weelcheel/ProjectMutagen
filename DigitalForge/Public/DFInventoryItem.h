@@ -4,7 +4,7 @@
 
 class ADigitalForgeCharacter;
 
-UCLASS(Blueprintable)
+UCLASS()
 class ADFInventoryItem : public AActor
 {
 	GENERATED_UCLASS_BODY()
@@ -14,6 +14,10 @@ class ADFInventoryItem : public AActor
 
 	/** [server] weapon was removed from pawn's inventory */
 	virtual void OnLeaveInventory();
+
+	/** if this item can be used by the owner */
+	UPROPERTY(EditDefaultsOnly, Category=Item)
+	bool bConsumableItem;
 
 protected:
 

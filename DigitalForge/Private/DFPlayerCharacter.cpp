@@ -1,6 +1,9 @@
 #include "DigitalForge.h"
 #include "DFPlayerCharacter.h"
 #include "DFNPCharacter.h"
+#include "DFPlayerInventory.h"
+#include "DFPlayerController.h"
+#include "DFSkill.h"
 
 ADFPlayerCharacter::ADFPlayerCharacter(const FObjectInitializer& ObjectInitializer) 
 	: Super(ObjectInitializer)
@@ -46,7 +49,7 @@ void ADFPlayerCharacter::SetupPlayerInputComponent(class UInputComponent* InputC
 	InputComponent->BindAction("WeaponAttack", IE_Released, this, &ADigitalForgeCharacter::StopWeaponAttack);
 
 	InputComponent->BindAction("PlayerUse", IE_Pressed, this, &ADFPlayerCharacter::PlayerUse);
-	InputComponent->BindAction("SkillUse", IE_Pressed, this, )
+	InputComponent->BindAction("SkillUse", IE_Pressed, this, &ADFPlayerCharacter::SkillUse);
 
 	InputComponent->BindAxis("MoveForward", this, &ADigitalForgeCharacter::MoveForward);
 	InputComponent->BindAxis("MoveRight", this, &ADigitalForgeCharacter::MoveRight);
@@ -70,4 +73,29 @@ void ADFPlayerCharacter::PlayerUse()
 	{
 		PlayerUseableNPC->OnPlayerUse(this);
 	}
+}
+
+void ADFPlayerCharacter::SkillUse()
+{
+	//@debugging: this is used to test specific skills. preforms the skill known at the first index
+
+	ADFPlayerInventory* inventory = GetPlayerInventory();
+
+	if (inventory)
+	{
+		inventory->GetDebugSkill()->SkillUsed();
+	}
+}
+
+ADFPlayerInventory* ADFPlayerCharacter::GetPlayerInventory() const
+{
+	ADFPlayerController* pc = Cast<ADFPlayerController>(GetController());
+	ADFPlayerInventory* inventory = NULL;
+
+	if (pc)
+	{
+		inventory = pc->GetInventory();
+	}
+
+	return inventory;
 }

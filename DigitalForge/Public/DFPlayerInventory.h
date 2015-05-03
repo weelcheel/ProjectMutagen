@@ -27,4 +27,7 @@ public:
 
 	/**Characters call this so that this Inventory system will call back with weapon data.*/
 	void RequestCharacterWeapon(ADigitalForgeCharacter* Character, ADFWeapon* WantedCurrent);
+
+	/** test skill system. debug use only. */
+	ADFSkill* GetDebugSkill();
 };

@@ -26,7 +26,7 @@ bool ADFPlayerController::GivePlayerInventory(TSubclassOf<ADFInventoryItem> Inve
 	ADigitalForgeCharacter* pc = Cast<ADigitalForgeCharacter>(GetCharacter());
 
 	//if were adding a skill
-	if (InventoryClass->StaticClass() == ADFSkill::StaticClass())
+	if (InventoryClass->IsChildOf(ADFSkill::StaticClass()))
 	{
 		FActorSpawnParameters par;
 		par.bNoCollisionFail = true;
@@ -85,4 +85,9 @@ void ADFPlayerController::GetLifetimeReplicatedProps( TArray< class FLifetimePro
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(ADFPlayerController, PlayerInventory);
+}
+
+ADFPlayerInventory* ADFPlayerController::GetInventory() const
+{
+	return PlayerInventory;
 }

@@ -47,3 +47,8 @@ void ADFPlayerInventory::GetLifetimeReplicatedProps( TArray< class FLifetimeProp
 	DOREPLIFETIME(ADFPlayerInventory, InventoryItems);
 	DOREPLIFETIME(ADFPlayerInventory, KnownSkills);
 }
+
+ADFSkill* ADFPlayerInventory::GetDebugSkill()
+{
+	return KnownSkills[0];
+}

@@ -16,7 +16,7 @@ class ADFSkill : public ADFInventoryItem
 	/** function called in code for the skill to be activated */
 	void SkillUsed();
 
-protected:
+public:
 
 	/** event triggered in blueprints that will let each skill behave differently */
 	UFUNCTION(BlueprintImplementableEvent, Category=Skill)
