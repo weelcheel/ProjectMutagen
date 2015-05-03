@@ -36,7 +36,7 @@ void ADFPlayerInventory::RequestCharacterWeapon(ADigitalForgeCharacter* Characte
 	}
 	else //bad or no wanted weapon, so switch to the first one in the array
 	{
-		if (PlayerWeapons[0])
+		if (PlayerWeapons.Num() > 0 && PlayerWeapons[0])
 		{
 			Character->SetCurrentWeapon(PlayerWeapons[0], Character->CurrentWeapon);
 		}
