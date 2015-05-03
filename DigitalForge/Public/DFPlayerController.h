@@ -24,4 +24,14 @@ public:
 
 	/** returns the inventory object */
 	ADFPlayerInventory* GetInventory() const;
+	/**
+	 * Class that holds the inventory the player has no matter what Character they
+	 * possess.
+	 */
+	ADFPlayerInventory* GetPlayerInventory();
+	/**
+	 * Class that holds the inventory the player has no matter what Character they
+	 * possess.
+	 */
+	void SetPlayerInventory(ADFPlayerInventory* newVal);
 };

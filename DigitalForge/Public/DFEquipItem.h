@@ -25,4 +25,14 @@ class ADFEquipItem : public ADFInventoryItem
 	/** what part of the body the item goes on */
 	UPROPERTY(EditDefaultsOnly, Category=Body)
 	TEnumAsByte<EItemEquipBodySlot::Type> ItemBodySlot;
+
+public:
+	/**
+	 * what part of the body the item goes on
+	 */
+	TEnumAsByte<EItemEquipBodySlot::Type> GetItemBodySlot();
+	/**
+	 * what part of the body the item goes on
+	 */
+	void SetItemBodySlot(TEnumAsByte<EItemEquipBodySlot::Type> newVal);
 };

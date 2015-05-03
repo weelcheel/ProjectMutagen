@@ -76,28 +76,60 @@ protected:
 
 public:
 
-	/** [local] starts weapon attack */
-	UFUNCTION(BlueprintCallable, Category=Attack)
+	/**
+	 * [local] starts weapon attack
+	 */
+	UFUNCTION(BlueprintCallable prm1, Category prm2 = Attack);
 	void StartWeaponAttack();
 
-	/** [local] stops weapon attack */
-	UFUNCTION(BlueprintCallable, Category=Attack)
+	/**
+	 * [local] stops weapon attack
+	 */
+	UFUNCTION(BlueprintCallable prm1, Category prm2 = Attack);
 	void StopWeaponAttack();
 
 	/**Sets the current weapon on the Character. Does not add weapon to the player's Inventory.*/
 	UFUNCTION(BlueprintCallable, Category=Inventory)
 	void SetCurrentWeapon(ADFWeapon* NewWeapon, ADFWeapon* LastWeapon);
 
-	/**Adds a holstered weapon to the Character.*/
-	UFUNCTION(BlueprintCallable, Category=Inventory)
+	/**
+	 * Adds a holstered weapon to the Character.
+	 */
+	UFUNCTION(BlueprintCallable prm1, Category prm2 = Inventory);
 	void AddHolsteredWeapon(ADFWeapon* NewWeapon);
 
 	/**Current weapon the user is currently using.*/
 	UPROPERTY(Transient, BlueprintReadOnly, ReplicatedUsing=OnRep_CurrentWeapon)
 	ADFWeapon* CurrentWeapon;
 
-	/**Calculate defensive damage modifers and inflict damage and .*/
-	UFUNCTION(BlueprintCallable, Category=Damage)
+	/**
+	 * Calculate defensive damage modifers and inflict damage and .
+	 */
+	UFUNCTION(BlueprintCallable prm1, Category prm2 = Damage);
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+	/**
+	 * current attacking state
+	 */
+	uint8 GetWantsToAttack();
+	/**
+	 * current attacking state
+	 */
+	void SetWantsToAttack(uint8 newVal);
+	int32 GetHealth();
+	void SetHealth(int32 newVal);
+	int32 GetHealthMax();
+	void SetHealthMax(int32 newVal);
+	int32 GetStamina();
+	void SetStamina(int32 newVal);
+	/**
+	 * Array of weapons the player currently has but not using. For ease and cosmetic
+	 * effects.
+	 */
+	TArray<ADFWeapon*> GetHolsteredWeapons();
+	/**
+	 * Array of weapons the player currently has but not using. For ease and cosmetic
+	 * effects.
+	 */
+	void SetHolsteredWeapons(TArray<ADFWeapon*> newVal);
 };
 

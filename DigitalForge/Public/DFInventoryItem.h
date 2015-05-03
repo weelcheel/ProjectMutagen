@@ -35,10 +35,15 @@ public:
 	/** set the inventory's owning pawn */
 	void SetOwningPawn(ADigitalForgeCharacter* DFCharacter);
 
-	UFUNCTION(BlueprintCallable, Category=ItemName)
+	/**
+	 * get pawn owner
+	 */
+	UFUNCTION(BlueprintCallable prm1, Category prm2 = ItemName);
 	FString GetItemName();
 
 	/** get pawn owner */
-	UFUNCTION(BlueprintCallable, Category="Game")
+	UFUNCTION(BlueprintCallable prm1, Category prm2 = "Game");
 	class ADigitalForgeCharacter* GetPawnOwner() const;
+	ADigitalForgeCharacter* GetMyPawn();
+	void SetMyPawn(ADigitalForgeCharacter* newVal);
 };

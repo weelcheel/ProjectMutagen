@@ -26,6 +26,9 @@ void ADFInventoryItem::GetLifetimeReplicatedProps( TArray< class FLifetimeProper
 	DOREPLIFETIME(ADFInventoryItem, MyPawn);
 }
 
+/**
+ * set the inventory's owning pawn
+ */
 void ADFInventoryItem::SetOwningPawn(ADigitalForgeCharacter* NewOwner)
 {
 	if (MyPawn != NewOwner)
@@ -37,11 +40,17 @@ void ADFInventoryItem::SetOwningPawn(ADigitalForgeCharacter* NewOwner)
 	}	
 }
 
+/**
+ * [server] weapon was added to pawn's inventory
+ */
 void ADFInventoryItem::OnEnterInventory(ADigitalForgeCharacter* NewOwner)
 {
 	SetOwningPawn(NewOwner);
 }
 
+/**
+ * [server] weapon was removed from pawn's inventory
+ */
 void ADFInventoryItem::OnLeaveInventory()
 {
 	if (Role == ROLE_Authority)
@@ -60,4 +69,16 @@ void ADFInventoryItem::OnRep_MyPawn()
 	{
 		OnLeaveInventory();
 	}
+}
+
+
+ADigitalForgeCharacter* ADFInventoryItem::GetMyPawn(){
+
+	return MyPawn;
+}
+
+
+void ADFInventoryItem::SetMyPawn(ADigitalForgeCharacter* newVal){
+
+	MyPawn = newVal;
 }

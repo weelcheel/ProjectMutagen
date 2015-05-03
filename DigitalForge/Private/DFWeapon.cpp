@@ -32,6 +32,9 @@ ADFWeapon::ADFWeapon(const FObjectInitializer& ObjectInitializer)
 	bNetUseOwnerRelevancy = true;
 }
 
+/**
+ * perform initial setup
+ */
 void ADFWeapon::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
@@ -39,6 +42,9 @@ void ADFWeapon::PostInitializeComponents()
 	DetachMeshFromPawn();
 }
 
+/**
+ * weapon is being equipped by owner pawn
+ */
 void ADFWeapon::OnEquip()
 {
 	AttachMeshToPawn();
@@ -62,6 +68,9 @@ void ADFWeapon::OnEquip()
 	}
 }
 
+/**
+ * weapon is now equipped by owner pawn
+ */
 void ADFWeapon::OnEquipFinished()
 {
 	AttachMeshToPawn();
@@ -72,6 +81,9 @@ void ADFWeapon::OnEquipFinished()
 	DetermineWeaponState();
 }
 
+/**
+ * weapon is holstered by owner pawn
+ */
 void ADFWeapon::OnUnEquip()
 {
 	DetachMeshFromPawn();
@@ -89,6 +101,9 @@ void ADFWeapon::OnUnEquip()
 	DetermineWeaponState();
 }
 
+/**
+ * attaches weapon mesh to pawn's mesh
+ */
 void ADFWeapon::AttachMeshToPawn()
 {
 	if (MyPawn)
@@ -101,6 +116,9 @@ void ADFWeapon::AttachMeshToPawn()
 	}
 }
 
+/**
+ * detaches weapon mesh from pawn
+ */
 void ADFWeapon::DetachMeshFromPawn()
 {
 	WeaponMesh->DetachFromParent();
@@ -109,6 +127,9 @@ void ADFWeapon::DetachMeshFromPawn()
 	//@todo: implement holstering
 }
 
+/**
+ * [local + server] start weapon fight
+ */
 void ADFWeapon::StartAttack()
 {
 	if (Role < ROLE_Authority)
@@ -123,6 +144,9 @@ void ADFWeapon::StartAttack()
 	}
 }
 
+/**
+ * [local + server] stop weapon fight
+ */
 void ADFWeapon::StopAttack()
 {
 	if (Role < ROLE_Authority)
@@ -157,6 +181,9 @@ void ADFWeapon::ServerStopAttack_Implementation()
 	StopAttack();
 }
 
+/**
+ * check if weapon can fight
+ */
 bool ADFWeapon::CanAttack() const
 {
 	bool bCanAttack = false;
@@ -199,6 +226,9 @@ void ADFWeapon::ServerHandleAttack_Implementation()
 	HandleAttack();
 }
 
+/**
+ * update weapon state
+ */
 void ADFWeapon::SetWeaponState(EWeaponState::Type NewState)
 {
 	const EWeaponState::Type PrevState = CurrentState;
@@ -216,6 +246,9 @@ void ADFWeapon::SetWeaponState(EWeaponState::Type NewState)
 	}
 }
 
+/**
+ * determine current weapon state
+ */
 void ADFWeapon::DetermineWeaponState()
 {
 	EWeaponState::Type NewState = EWeaponState::Idle;
@@ -235,17 +268,26 @@ void ADFWeapon::DetermineWeaponState()
 	SetWeaponState(NewState);
 }
 
+/**
+ * [local + server] attack started
+ */
 void ADFWeapon::OnAttackStarted()
 {
 	HandleAttack();
 	PlayWeaponAnimation(AttackAnimation);
 }
 
+/**
+ * [local + server] attack finished
+ */
 void ADFWeapon::OnAttackFinished()
 {
 	bReattacking = false;
 }
 
+/**
+ * play weapon sounds
+ */
 UAudioComponent* ADFWeapon::PlayWeaponSound(USoundCue* Sound)
 {
 	UAudioComponent* AC = NULL;
@@ -291,26 +333,41 @@ FHitResult ADFWeapon::WeaponTrace(const FVector& TraceFrom, const FVector& Trace
 }
 
 
+/**
+ * check if it's currently equipped
+ */
 bool ADFWeapon::IsEquipped() const
 {
 	return bIsEquipped;
 }
 
+/**
+ * check if mesh is already attached
+ */
 bool ADFWeapon::IsAttachedToPawn() const
 {
 	return bIsEquipped || bPendingEquip;
 }
 
+/**
+ * get current weapon state
+ */
 EWeaponState::Type ADFWeapon::GetCurrentState() const
 {
 	return CurrentState;
 }
 
+/**
+ * gets last time when this weapon was switched to
+ */
 float ADFWeapon::GetEquipStartedTime() const
 {
 	return EquipStartedTime;
 }
 
+/**
+ * gets the duration of equipping weapon
+ */
 float ADFWeapon::GetEquipDuration() const
 {
 	return EquipDuration;
@@ -337,4 +394,179 @@ void ADFWeapon::OnLeaveInventory()
 	{
 		OnUnEquip();
 	}
+}
+
+
+
+float ADFWeapon::GetWeaponRange(){
+
+	return WeaponRange;
+}
+
+
+void ADFWeapon::SetWeaponRange(float newVal){
+
+	WeaponRange = newVal;
+}
+
+
+/**
+ * time of last successful weapon attack
+ */
+float ADFWeapon::GetLastAttackTime(){
+
+	return LastAttackTime;
+}
+
+
+/**
+ * time of last successful weapon attack
+ */
+void ADFWeapon::SetLastAttackTime(float newVal){
+
+	LastAttackTime = newVal;
+}
+
+
+/**
+ * equip anim for Character mesh
+ */
+UAnimMontage* ADFWeapon::GetEquipAnimation(){
+
+	return EquipAnimation;
+}
+
+
+/**
+ * equip anim for Character mesh
+ */
+void ADFWeapon::SetEquipAnimation(UAnimMontage* newVal){
+
+	EquipAnimation = newVal;
+}
+
+
+/**
+ * is weapon attack active?
+ */
+uint32 ADFWeapon::GetWantsToAttack(){
+
+	return bWantsToAttack;
+}
+
+
+/**
+ * is weapon attack active?
+ */
+void ADFWeapon::SetWantsToAttack(uint32 newVal){
+
+	bWantsToAttack = newVal;
+}
+
+
+/**
+ * weapon is reattacking
+ */
+uint32 ADFWeapon::GetReattacking(){
+
+	return bReattacking;
+}
+
+
+/**
+ * weapon is reattacking
+ */
+void ADFWeapon::SetReattacking(uint32 newVal){
+
+	bReattacking = newVal;
+}
+
+
+/**
+ * is attack animation playing?
+ */
+uint32 ADFWeapon::GetPlayingAttackAnim(){
+
+	return bPlayingAttackAnim;
+}
+
+
+/**
+ * is attack animation playing?
+ */
+void ADFWeapon::SetPlayingAttackAnim(uint32 newVal){
+
+	bPlayingAttackAnim = newVal;
+}
+
+
+/**
+ * is equip animation playing?
+ */
+uint32 ADFWeapon::GetPendingEquip(){
+
+	return bPendingEquip;
+}
+
+
+/**
+ * is equip animation playing?
+ */
+void ADFWeapon::SetPendingEquip(uint32 newVal){
+
+	bPendingEquip = newVal;
+}
+
+
+/**
+ * is weapon currently equipped?
+ */
+uint32 ADFWeapon::GetIsEquipped(){
+
+	return bIsEquipped;
+}
+
+
+/**
+ * is weapon currently equipped?
+ */
+void ADFWeapon::SetIsEquipped(uint32 newVal){
+
+	bIsEquipped = newVal;
+}
+
+
+/**
+ * fighting audio
+ */
+UAudioComponent* ADFWeapon::GetAttackAudio(){
+
+	return AttackAudio;
+}
+
+
+/**
+ * fighting audio
+ */
+void ADFWeapon::SetAttackAudio(UAudioComponent* newVal){
+
+	AttackAudio = newVal;
+}
+
+
+/**
+ * attack anim for Character mesh
+ */
+UAnimMontage* ADFWeapon::GetAttackAnimation(){
+
+	return AttackAnimation;
+}
+
+
+/**
+ * attack anim for Character mesh
+ */
+void ADFWeapon::SetAttackAnimation(UAnimMontage* newVal){
+
+	AttackAnimation = newVal;
 }
