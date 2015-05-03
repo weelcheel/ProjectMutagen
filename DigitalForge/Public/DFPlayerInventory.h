@@ -30,28 +30,4 @@ public:
 
 	/** test skill system. debug use only. */
 	ADFSkill* GetDebugSkill();
-	/**
-	 * Weapons the player currently has in inventory.
-	 */
-	TArray<ADFWeapon*> GetPlayerWeapons();
-	/**
-	 * Weapons the player currently has in inventory.
-	 */
-	void SetPlayerWeapons(TArray<ADFWeapon*> newVal);
-	/**
-	 * Array of skills that the player currently knows.
-	 */
-	TArray<ADFSkill*> GetKnownSkills();
-	/**
-	 * Array of skills that the player currently knows.
-	 */
-	void SetKnownSkills(TArray<ADFSkill*> newVal);
-	/**
-	 * Other items in the inventory array.
-	 */
-	TArray<TSubclassOf<ADFInventoryItem> > GetInventoryItems();
-	/**
-	 * Other items in the inventory array.
-	 */
-	void SetInventoryItems(TArray<TSubclassOf<ADFInventoryItem> > newVal);
 };

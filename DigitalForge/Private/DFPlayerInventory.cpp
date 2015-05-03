@@ -11,10 +11,6 @@ ADFPlayerInventory::ADFPlayerInventory(const FObjectInitializer& ObjectInitializ
 
 }
 
-/**
- * Characters call this so that this Inventory system will call back with weapon
- * data.
- */
 void ADFPlayerInventory::RequestCharacterWeapon(ADigitalForgeCharacter* Character, ADFWeapon* WantedCurrent)
 {
 	if (WantedCurrent)
@@ -52,64 +48,7 @@ void ADFPlayerInventory::GetLifetimeReplicatedProps( TArray< class FLifetimeProp
 	DOREPLIFETIME(ADFPlayerInventory, KnownSkills);
 }
 
-/**
- * test skill system. debug use only.
- */
 ADFSkill* ADFPlayerInventory::GetDebugSkill()
 {
 	return KnownSkills[0];
-}
-
-
-/**
- * Weapons the player currently has in inventory.
- */
-TArray<ADFWeapon*> ADFPlayerInventory::GetPlayerWeapons(){
-
-	return PlayerWeapons;
-}
-
-
-/**
- * Weapons the player currently has in inventory.
- */
-void ADFPlayerInventory::SetPlayerWeapons(TArray<ADFWeapon*> newVal){
-
-	PlayerWeapons = newVal;
-}
-
-
-/**
- * Array of skills that the player currently knows.
- */
-TArray<ADFSkill*> ADFPlayerInventory::GetKnownSkills(){
-
-	return KnownSkills;
-}
-
-
-/**
- * Array of skills that the player currently knows.
- */
-void ADFPlayerInventory::SetKnownSkills(TArray<ADFSkill*> newVal){
-
-	KnownSkills = newVal;
-}
-
-
-/**
- * Other items in the inventory array.
- */
-TArray<TSubclassOf<ADFInventoryItem> > ADFPlayerInventory::GetInventoryItems(){
-
-	return InventoryItems;
-}
-
-
-/**
- * Other items in the inventory array.
- */
-void ADFPlayerInventory::SetInventoryItems(TArray<TSubclassOf<ADFInventoryItem> > newVal){
-
-	InventoryItems = newVal;
 }

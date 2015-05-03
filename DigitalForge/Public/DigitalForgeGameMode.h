@@ -4,7 +4,7 @@
 #include "GameFramework/GameMode.h"
 #include "DigitalForgeGameMode.generated.h"
 
-UCLASS()
+UCLASS(minimalapi)
 class ADigitalForgeGameMode : public AGameMode
 {
 	GENERATED_BODY()

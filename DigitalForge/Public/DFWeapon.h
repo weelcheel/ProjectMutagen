@@ -102,9 +102,6 @@ protected:
 	/** how much time weapon needs to be equipped */
 	float EquipDuration;
 
-	/**
-	 * [server] attack & update
-	 */
 	UFUNCTION(reliable, server, WithValidation)
 	void ServerStartAttack();
 
@@ -117,6 +114,9 @@ protected:
 	/** [server] attack & update */
 	UFUNCTION(reliable, server, WithValidation)
 	void ServerHandleAttack();
+
+	/** [local + server] handle weapon attack */
+	UFUNCTION(BlueprintCallable, Category=Functionality)
 	void HandleAttack();
 
 	/** update weapon state */
@@ -133,18 +133,17 @@ protected:
 
 	/**play weapon sounds*/
 	UAudioComponent* PlayWeaponSound(USoundCue* Sound);
+
+	/** play weapon animations */
+	UFUNCTION(BlueprintCallable, Category=Animation)
 	float PlayWeaponAnimation(UAnimMontage* Animation);
 
-	/**
-	 * play weapon animations
-	 */
-	UFUNCTION(BlueprintCallable prm1, Category prm2 = Animation);
+	/** stop playing weapon animations */
+	UFUNCTION(BlueprintCallable, Category=Animation)
 	void StopWeaponAnimation(UAnimMontage* Animation);
 
-	/**
-	 * [local + server] handle weapon attack
-	 */
-	UFUNCTION(BlueprintCallable prm1, Category prm2 = Functionality);
+	/** find hit */
+	UFUNCTION(BlueprintCallable, Category=Trace)
 	FHitResult WeaponTrace(const FVector& TraceFrom, const FVector& TraceTo) const;
 
 	/** [local + server] attack started */
@@ -153,16 +152,6 @@ protected:
 	/** [local + server] attack finished */
 	virtual void OnAttackFinished();
 
-	/**
-	 * stop playing weapon animations
-	 */
-	UFUNCTION(BlueprintCallable prm1, Category prm2 = Animation);
-
-	/**
-	 * find hit
-	 */
-	UFUNCTION(BlueprintCallable prm1, Category prm2 = Trace);
-
 	UPROPERTY(BlueprintReadWrite, Category=Range)
 	float WeaponRange;
 
@@ -170,90 +159,12 @@ public:
 
 	/** get current weapon state */
 	EWeaponState::Type GetCurrentState() const;
+
+	/** get weapon mesh (needs pawn owner to determine variant) */
+	UFUNCTION(BlueprintCallable, Category=Mesh)
 	USkeletalMeshComponent* GetWeaponMesh() const;
+
+	/**get whether or not the weapon is attacking*/
+	UFUNCTION(BlueprintCallable, Category=Attack)
 	bool GetWeaponWantsToAttack();
-
-	/**
-	 * get weapon mesh (needs pawn owner to determine variant)
-	 */
-	UFUNCTION(BlueprintCallable prm1, Category prm2 = Mesh);
-
-	/**
-	 * get whether or not the weapon is attacking
-	 */
-	UFUNCTION(BlueprintCallable prm1, Category prm2 = Attack);
-	float GetWeaponRange();
-	void SetWeaponRange(float newVal);
-	/**
-	 * time of last successful weapon attack
-	 */
-	float GetLastAttackTime();
-	/**
-	 * time of last successful weapon attack
-	 */
-	void SetLastAttackTime(float newVal);
-	/**
-	 * equip anim for Character mesh
-	 */
-	UAnimMontage* GetEquipAnimation();
-	/**
-	 * equip anim for Character mesh
-	 */
-	void SetEquipAnimation(UAnimMontage* newVal);
-	/**
-	 * is weapon attack active?
-	 */
-	uint32 GetWantsToAttack();
-	/**
-	 * is weapon attack active?
-	 */
-	void SetWantsToAttack(uint32 newVal);
-	/**
-	 * weapon is reattacking
-	 */
-	uint32 GetReattacking();
-	/**
-	 * weapon is reattacking
-	 */
-	void SetReattacking(uint32 newVal);
-	/**
-	 * is attack animation playing?
-	 */
-	uint32 GetPlayingAttackAnim();
-	/**
-	 * is attack animation playing?
-	 */
-	void SetPlayingAttackAnim(uint32 newVal);
-	/**
-	 * is equip animation playing?
-	 */
-	uint32 GetPendingEquip();
-	/**
-	 * is equip animation playing?
-	 */
-	void SetPendingEquip(uint32 newVal);
-	/**
-	 * is weapon currently equipped?
-	 */
-	uint32 GetIsEquipped();
-	/**
-	 * is weapon currently equipped?
-	 */
-	void SetIsEquipped(uint32 newVal);
-	/**
-	 * fighting audio
-	 */
-	UAudioComponent* GetAttackAudio();
-	/**
-	 * fighting audio
-	 */
-	void SetAttackAudio(UAudioComponent* newVal);
-	/**
-	 * attack anim for Character mesh
-	 */
-	UAnimMontage* GetAttackAnimation();
-	/**
-	 * attack anim for Character mesh
-	 */
-	void SetAttackAnimation(UAnimMontage* newVal);
 };

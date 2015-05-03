@@ -21,6 +21,4 @@ public:
 	/** event triggered in blueprints that will let each skill behave differently */
 	UFUNCTION(BlueprintImplementableEvent, Category=Skill)
 	void PerformSkill();
-	float GetSkillCooldown();
-	void SetSkillCooldown(float newVal);
 };

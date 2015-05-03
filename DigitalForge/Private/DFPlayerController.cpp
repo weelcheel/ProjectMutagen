@@ -87,30 +87,7 @@ void ADFPlayerController::GetLifetimeReplicatedProps( TArray< class FLifetimePro
 	DOREPLIFETIME(ADFPlayerController, PlayerInventory);
 }
 
-/**
- * returns the inventory object
- */
 ADFPlayerInventory* ADFPlayerController::GetInventory() const
 {
 	return PlayerInventory;
-}
-
-
-/**
- * Class that holds the inventory the player has no matter what Character they
- * possess.
- */
-ADFPlayerInventory* ADFPlayerController::GetPlayerInventory(){
-
-	return PlayerInventory;
-}
-
-
-/**
- * Class that holds the inventory the player has no matter what Character they
- * possess.
- */
-void ADFPlayerController::SetPlayerInventory(ADFPlayerInventory* newVal){
-
-	PlayerInventory = newVal;
 }

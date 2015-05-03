@@ -24,9 +24,6 @@ void ADigitalForgeCharacter::BeginPlay()
 	Health = HealthMax;
 }
 
-/**
- * Handler for when a touch input begins.
- */
 void ADigitalForgeCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
 {
 	// jump, but only on the first touch
@@ -36,9 +33,6 @@ void ADigitalForgeCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector
 	}
 }
 
-/**
- * Handler for when a touch input stops.
- */
 void ADigitalForgeCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
 {
 	if (FingerIndex == ETouchIndex::Touch1)
@@ -47,29 +41,18 @@ void ADigitalForgeCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector
 	}
 }
 
-/**
- * Called via input to turn at a given rate.
- * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
- */
 void ADigitalForgeCharacter::TurnAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
-/**
- * Called via input to turn look up/down at a given rate.
- * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
- */
 void ADigitalForgeCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-/**
- * Called for forwards/backward input
- */
 void ADigitalForgeCharacter::MoveForward(float Value)
 {
 	if ((Controller != NULL) && (Value != 0.0f))
@@ -84,9 +67,6 @@ void ADigitalForgeCharacter::MoveForward(float Value)
 	}
 }
 
-/**
- * Called for side to side input
- */
 void ADigitalForgeCharacter::MoveRight(float Value)
 {
 	if ( (Controller != NULL) && (Value != 0.0f) )
@@ -180,78 +160,4 @@ float ADigitalForgeCharacter::TakeDamage(float Damage, struct FDamageEvent const
 	Health -= Damage;
 
 	return Super::TakeDamage(Damage, DamageEvent, EventInstigator, DamageCauser);
-}
-
-
-/**
- * current attacking state
- */
-uint8 ADigitalForgeCharacter::GetWantsToAttack(){
-
-	return bWantsToAttack;
-}
-
-
-/**
- * current attacking state
- */
-void ADigitalForgeCharacter::SetWantsToAttack(uint8 newVal){
-
-	bWantsToAttack = newVal;
-}
-
-
-int32 ADigitalForgeCharacter::GetHealth(){
-
-	return Health;
-}
-
-
-void ADigitalForgeCharacter::SetHealth(int32 newVal){
-
-	Health = newVal;
-}
-
-
-int32 ADigitalForgeCharacter::GetHealthMax(){
-
-	return HealthMax;
-}
-
-
-void ADigitalForgeCharacter::SetHealthMax(int32 newVal){
-
-	HealthMax = newVal;
-}
-
-
-int32 ADigitalForgeCharacter::GetStamina(){
-
-	return Stamina;
-}
-
-
-void ADigitalForgeCharacter::SetStamina(int32 newVal){
-
-	Stamina = newVal;
-}
-
-
-/**
- * Array of weapons the player currently has but not using. For ease and cosmetic
- * effects.
- */
-TArray<ADFWeapon*> ADigitalForgeCharacter::GetHolsteredWeapons(){
-
-	return HolsteredWeapons;
-}
-
-
-/**
- * Array of weapons the player currently has but not using. For ease and cosmetic
- * effects.
- */
-void ADigitalForgeCharacter::SetHolsteredWeapons(TArray<ADFWeapon*> newVal){
-
-	HolsteredWeapons = newVal;
 }
