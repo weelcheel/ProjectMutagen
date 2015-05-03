@@ -4,6 +4,7 @@
 #include "DigitalForgeCharacter.generated.h"
 
 class ADFWeapon;
+class UStat;
 
 UCLASS(config=Game)
 class ADigitalForgeCharacter : public ACharacter
@@ -55,6 +56,9 @@ protected:
 	/**Array of weapons the player currently has but not using. For ease and cosmetic effects.*/
 	UPROPERTY(Replicated)
 	TArray<ADFWeapon*> HolsteredWeapons;
+
+	UPROPERTY(EditDefaultsOnly, Replicated)
+	TArray<UStat*> BaseStats;
 
 	UFUNCTION()
 	void OnRep_CurrentWeapon(ADFWeapon* lastweapon);

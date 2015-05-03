@@ -3,6 +3,7 @@
 #include "DigitalForge.h"
 #include "DigitalForgeCharacter.h"
 #include "DFWeapon.h"
+#include "Stat.h"
 #include "UnrealNetwork.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -125,6 +126,7 @@ void ADigitalForgeCharacter::GetLifetimeReplicatedProps( TArray< class FLifetime
 
 	DOREPLIFETIME(ADigitalForgeCharacter, CurrentWeapon);
 	DOREPLIFETIME(ADigitalForgeCharacter, Health);
+	DOREPLIFETIME(ADigitalForgeCharacter, BaseStats);
 }
 
 void ADigitalForgeCharacter::StartWeaponAttack()
